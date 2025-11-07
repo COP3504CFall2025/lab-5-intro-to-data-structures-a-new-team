@@ -57,7 +57,7 @@ public:
 	const Node* getTail() const {return tail; }
 
 	// Insertion
-	void addHead(const T& data) {
+	void AddHead(const T& data) {
     // First, construct a node using data
     Node* head = new Node{
       data,
@@ -75,7 +75,7 @@ public:
     }
 	}
 	
-	void addTail(const T& data) {
+	void AddTail(const T& data) {
     // First, construct a node using data
     Node* tail = new Node{
       data,
@@ -93,7 +93,7 @@ public:
 	}
 
 	// Removal
-	bool removeHead() {
+	bool RemoveHead() {
 		if (!this->head) { return false; }
 
     if (this->head == this->tail) {
@@ -110,7 +110,7 @@ public:
     return true;
   }
   
-	bool removeTail() {
+	bool RemoveTail() {
 		if (!this->tail) { return false; }
 
     if (this->head == this->tail) {
@@ -130,7 +130,7 @@ public:
 	void Clear() {
 		if(!head) { return; }
 
-    removeHead();
+    RemoveHead();
     Clear();
   }
 
