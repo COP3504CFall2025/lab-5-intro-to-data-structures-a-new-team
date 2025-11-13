@@ -140,6 +140,10 @@ public:
     }
     
     T popFront() override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+
         size_t old_head = head;
         head = (head + 1) % capacity;
         size -= 1;
@@ -149,6 +153,10 @@ public:
     }
     
     T popBack() override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+
         // size_t old_back = back;
         tail = (tail - 1) % capacity;
         size -= 1;
@@ -160,7 +168,7 @@ public:
     // Access
     const T& front() const override {
         if (size == 0) {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
 
         return array[head];
@@ -168,7 +176,7 @@ public:
     
     const T& back() const override {
         if (size == 0) {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
 
         return array[tail];

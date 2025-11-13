@@ -59,7 +59,6 @@ int main() {
 
     ABQ<int> test;
 
-    test. 
     return 0;
 }
 

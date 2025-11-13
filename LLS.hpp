@@ -24,7 +24,7 @@ public:
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
         list.removeHead();
         return head;
@@ -36,7 +36,7 @@ public:
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
         return head;
     }

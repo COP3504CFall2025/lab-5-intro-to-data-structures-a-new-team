@@ -32,7 +32,7 @@ public:
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
         list.removeHead();
         return head;
@@ -43,7 +43,7 @@ public:
         if(auto tail_ptr = list.getTail()) {
             tail = tail_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
         list.removeTail();
         return tail;
@@ -51,21 +51,21 @@ public:
 
     // Element Accessors
     const T& front() const override {
-        T* head;
+        const T* head;
         if(auto head_ptr = list.getHead()) {
             head = &head_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
         return *head;
     }
     
     const T& back() const override {
-        T* tail;
+        const T* tail;
         if(auto tail_ptr = list.getTail()) {
             tail = &tail_ptr->data;
         } else {
-            throw std::out_of_range("Index out of bounds.");
+            throw std::runtime_error("Index out of bounds.");
         }
 
         return *tail;

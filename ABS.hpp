@@ -70,7 +70,7 @@ public:
         return *this;
     }
     
-    ~ABS() noexcept override {
+    ~ABS() override {
         delete[] array;
         array = nullptr;
         capacity = size = 0;
@@ -104,10 +104,18 @@ public:
     }
 
     T peek() const override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+
         return array[size - 1];
     }
 
     T pop() override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+
         size -= 1;
         T output = array[size];
 

@@ -76,7 +76,7 @@ public:
         return *this;
     }
 
-    ~ABQ() noexcept override {
+    ~ABQ() override {
         delete[] array;
         array = nullptr;
         capacity = size = 0;
@@ -101,11 +101,19 @@ public:
 
     // Access
     T peek() const override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+        
         return array[0];
     }
 
     // Deletion
     T dequeue() override {
+        if (size == 0) {
+            throw std::runtime_error("Index out of bounds.");
+        }
+
         T output = array[0];
 
         for (size_t i = 0; i < size - 1; ++i) {
