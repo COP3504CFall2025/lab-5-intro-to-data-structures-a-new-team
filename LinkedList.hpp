@@ -73,6 +73,8 @@ public:
       this->head->prev = head;
       this->head = head;
     }
+
+    ++count;
 	}
 	
 	void addTail(const T& data) {
@@ -90,6 +92,8 @@ public:
       this->tail->next = tail;
       this->tail = tail;
     }
+
+    ++count;
 	}
 
 	// Removal
@@ -107,6 +111,7 @@ public:
     if (next) { next->prev = nullptr; }
     this->head = next;
 
+		--count;
     return true;
   }
   
@@ -124,6 +129,7 @@ public:
     if (prev) { prev->next = nullptr; }
     this->tail = prev;
 
+		--count;
     return true;
   }
   
