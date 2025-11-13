@@ -23,6 +23,8 @@ public:
         T head;
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
         list.removeHead();
         return head;
@@ -33,6 +35,8 @@ public:
         T head;
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
         return head;
     }

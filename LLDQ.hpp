@@ -31,6 +31,8 @@ public:
         T head;
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
         list.removeHead();
         return head;
@@ -40,6 +42,8 @@ public:
         T tail;
         if(auto tail_ptr = list.getTail()) {
             tail = tail_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
         list.removeTail();
         return tail;
@@ -47,19 +51,24 @@ public:
 
     // Element Accessors
     const T& front() const override {
-        T head;
+        T* head;
         if(auto head_ptr = list.getHead()) {
             head = head_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
-        return head;
+        return *head;
     }
     
     const T& back() const override {
-        T tail;
+        T* tail;
         if(auto tail_ptr = list.getTail()) {
             tail = tail_ptr->data;
+        } else {
+            throw std::out_of_range("Index out of bounds.");
         }
-        return tail;
+
+        return *tail;
     }
 
     // Getter

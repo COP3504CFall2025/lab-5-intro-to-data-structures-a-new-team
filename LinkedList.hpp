@@ -127,11 +127,11 @@ public:
     return true;
   }
   
-	void Clear() {
+	void clear() {
 		if(!head) { return; }
 
     removeHead();
-    Clear();
+    clear();
   }
 
 private:
@@ -143,7 +143,7 @@ private:
 
 public:
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
-    Clear();
+    clear();
     CopyNodeChain(rhs.head);
     count = rhs.count;
     return *this;
@@ -167,7 +167,7 @@ public:
 	}
 	
 	~LinkedList() {
-		Clear();
+		clear();
     tail = nullptr;
 	}
 };
