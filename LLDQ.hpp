@@ -53,7 +53,7 @@ public:
     const T& front() const override {
         T* head;
         if(auto head_ptr = list.getHead()) {
-            head = head_ptr->data;
+            head = &head_ptr->data;
         } else {
             throw std::out_of_range("Index out of bounds.");
         }
@@ -63,7 +63,7 @@ public:
     const T& back() const override {
         T* tail;
         if(auto tail_ptr = list.getTail()) {
-            tail = tail_ptr->data;
+            tail = &tail_ptr->data;
         } else {
             throw std::out_of_range("Index out of bounds.");
         }
