@@ -75,7 +75,7 @@ public:
     
     ABDQ& operator=(const ABDQ& other) {
         capacity = other.capacity;
-        array = new T[capacity];
+        T* new_array = new T[capacity];
         
         size_t j = 0;
         for(size_t i = other.head; i != other.tail; i = other.WrappedAdd(i)) {
@@ -87,6 +87,8 @@ public:
         tail = size;
         size = other.size;
 
+        delete[] array;
+        array = new_array;
         return *this;
     }
     
@@ -122,7 +124,7 @@ public:
         size += 1;
     }
     void pushBack(const T& item) override {
-        if (size + 1 >= capacity) {
+        if (size >= capacity) {
             T* new_array = grow();
             head = 0;
             tail = size;
@@ -148,7 +150,8 @@ public:
             new_array[j] = array[i];
             ++j;
         }
-        delete old_array;
+        delete[] old_array;
+        capacity = new_cap;
     }
     
     T popFront() override {
