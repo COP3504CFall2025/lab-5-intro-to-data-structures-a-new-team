@@ -20,14 +20,21 @@ public:
 
     // Deletion
     T pop() override {
-        T head = list.getHead();
+        T head;
+        if(auto head_ptr = list.getHead()) {
+            head = head_ptr->data;
+        }
         list.removeHead();
         return head;
     }
 
     // Access
     T peek() const override {
-        return list.getHead();
+        T head;
+        if(auto head_ptr = list.getHead()) {
+            head = head_ptr->data;
+        }
+        return head;
     }
 
     //Getters
