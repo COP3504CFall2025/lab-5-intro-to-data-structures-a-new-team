@@ -100,6 +100,7 @@ public:
 	bool removeHead() {
 		if (!this->head) { return false; }
 
+		--count;
     if (this->head == this->tail) {
       delete this->head;
       this->head = this->tail = nullptr;
@@ -110,18 +111,16 @@ public:
     delete this->head;
     if (next) { next->prev = nullptr; }
     this->head = next;
-
-		--count;
     return true;
   }
   
 	bool removeTail() {
 		if (!this->tail) { return false; }
 
+		--count;
     if (this->head == this->tail) {
       delete this->head;
       this->head = this->tail = nullptr;
-			--count;
       return true;
     }
     
@@ -129,8 +128,6 @@ public:
     delete this->tail;
     if (prev) { prev->next = nullptr; }
     this->tail = prev;
-
-		--count;
     return true;
   }
   
