@@ -70,6 +70,7 @@ int main() {
     test.popBack();
     test.PrintForward();
     test.pushFront(123);
+    std::cout << test.front();
     test.PrintForward();
     test.popFront();
     test.PrintForward();

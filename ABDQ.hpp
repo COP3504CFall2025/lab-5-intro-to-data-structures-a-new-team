@@ -20,21 +20,6 @@ private:
 
     
     T* grow() {
-        /*capacity *= scale_factor;
-        T* new_array = new T[capacity];
-        
-        if (head <= tail) {
-            std::memcpy(new_array, array + head, tail - head);
-        } else {
-            std::memcpy(new_array, array + head, capacity - head);
-            std::memcpy(new_array + tail - head, array, tail);
-        }
-
-        head = 0;
-        tail = size;
-                
-        return new_array;*/
-
         capacity *= scale_factor;
         T* new_array = new T[capacity];
         size_t j = 0;
@@ -64,7 +49,7 @@ public:
         this->tail = 0;
     }
     
-    ABDQ() : ABDQ(2) {}
+    ABDQ() : ABDQ(4) {}
     
     ABDQ(const ABDQ& other) : ABDQ(other.capacity) {
         array = new T[capacity];
@@ -124,8 +109,10 @@ public:
 
     // Insertion
     void pushFront(const T& item) override {
-        if (size + 1 >= capacity) {
+        if (size >= capacity) {
             T* new_array = grow();
+            head = 0;
+            tail = size;
             delete[] array;
             array = new_array;
         }
@@ -137,6 +124,8 @@ public:
     void pushBack(const T& item) override {
         if (size + 1 >= capacity) {
             T* new_array = grow();
+            head = 0;
+            tail = size;
             delete[] array;
             array = new_array;
         }
@@ -148,19 +137,6 @@ public:
 
     // Deletion
     void shrinkIfNeeded() {
-        /*
-        if (capacity <= 4 || 4 * size < capacity) { return; }
-
-        capacity /= scale_factor;
-        T* new_array = new T[capacity];
-        
-        if (head <= tail) {
-            std::memcpy(new_array, array + head, tail - head);
-        } else {
-            std::memcpy(new_array, array + head, capacity - head);
-            std::memcpy(new_array, array, tail);
-        }
-        */
         T* old_array = array;
         if (capacity <= 4 || 4 * size < capacity) { return; }
         
