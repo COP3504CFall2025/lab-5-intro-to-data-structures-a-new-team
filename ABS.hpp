@@ -51,7 +51,7 @@ public:
     ABS(ABS&& other) noexcept {
         array = other.array;
         capacity = other.capacity;
-        size = other.capacity;
+        size = other.size;
 
         other.array = nullptr;
         other.capacity = 0;
@@ -118,12 +118,13 @@ public:
 
         size -= 1;
         T output = array[size];
+        /*
 
         if (capacity >= 4 && 4 * size <= capacity) {
             T* new_array = shrink();
             delete[] array;
             array = new_array;
-        }
+        }*/
         
         return output;
     }
