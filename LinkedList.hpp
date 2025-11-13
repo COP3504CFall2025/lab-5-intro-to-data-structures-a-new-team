@@ -109,8 +109,13 @@ public:
   
     Node* next = this->head->next;
     delete this->head;
-    if (next) { next->prev = nullptr; }
-    this->head = next;
+    if (next) {
+    	next->prev = nullptr;
+	    this->head = next;
+    } else {
+    	this->head = this->tail = nullptr;
+    }
+
     return true;
   }
   
@@ -126,8 +131,13 @@ public:
     
     Node* prev = this->tail->prev;
     delete this->tail;
-    if (prev) { prev->next = nullptr; }
-    this->tail = prev;
+    if (prev) {
+    	prev->next = nullptr;
+	    this->tail = prev;
+    } else {
+    	this->tail = this->head = nullptr;
+    }
+
     return true;
   }
   
