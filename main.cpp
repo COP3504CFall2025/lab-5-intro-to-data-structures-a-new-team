@@ -19,8 +19,41 @@
 */
 
 int main() {
+    LinkedList<int> list;
+    list.addHead(123);
+    list.addHead(111);
+    list.addTail(333);
 
+    list.printForward();
+    std::cout << list.getCount() << std::endl;
+    list.removeHead();
+    list.printForward();
+    std::cout << list.getCount() << std::endl;
+    list.removeTail();
+    list.printForward();
+    std::cout << list.getCount() << std::endl;  
+    list.removeHead();
+    list.printForward();
+    std::cout << list.getCount() << std::endl;  
 
+    
+    list.addHead(123);
+    list.addHead(111);
+    list.removeHead();
+    list.addHead(111);
+    list.addHead(111);
+    list.removeTail();
+    list.addHead(111);
+    list.addHead(111);
+    list.removeTail();
+    list.removeHead();
+    list.addTail(333);
+
+    list.printReverse();
+    std::cout << list.getCount() << std::endl;  
+    list.clear();
+    list.printReverse();
+    std::cout << list.getCount() << std::endl;  
     return 0;
 }
 

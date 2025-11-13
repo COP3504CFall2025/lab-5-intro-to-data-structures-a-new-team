@@ -172,7 +172,7 @@ public:
 	
 	~LinkedList() {
 		clear();
-    tail = nullptr;
+    //tail = nullptr;
 	}
 };
 
