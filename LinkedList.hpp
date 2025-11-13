@@ -182,7 +182,8 @@ public:
 	
 	~LinkedList() {
 		clear();
-    //tail = nullptr;
+		head = tail = nullptr;
+		count = 0;
 	}
 };
 

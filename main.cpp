@@ -19,6 +19,7 @@
 */
 
 int main() {
+    /*
     LinkedList<int> list;
     list.addHead(123);
     list.addHead(111);
@@ -53,7 +54,12 @@ int main() {
     std::cout << list.getCount() << std::endl;  
     list.clear();
     list.printReverse();
-    std::cout << list.getCount() << std::endl;  
+    std::cout << list.getCount() << std::endl;
+    */
+
+    ABQ<int> test;
+
+    test. 
     return 0;
 }
 

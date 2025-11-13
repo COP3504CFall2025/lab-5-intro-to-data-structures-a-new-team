@@ -72,6 +72,7 @@ public:
     
     ~ABS() noexcept override {
         delete[] array;
+        array = nullptr;
         capacity = size = 0;
     }
 
