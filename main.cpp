@@ -57,7 +57,22 @@ int main() {
     std::cout << list.getCount() << std::endl;
     */
 
-    ABQ<int> test;
+    ABDQ<int> test;
+
+    test.PrintForward();
+    test.pushBack(565);
+    test.PrintForward();
+    test.pushBack(1432);
+    test.PrintForward();
+    test.pushBack(4312);
+    test.PrintForward();
+
+    test.popBack();
+    test.PrintForward();
+    test.pushFront(123);
+    test.PrintForward();
+    test.popFront();
+    test.PrintForward();
 
     return 0;
 }

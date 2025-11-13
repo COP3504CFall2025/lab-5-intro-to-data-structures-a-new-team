@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 #include <cstring>
 #include <stdexcept>
 #include "Interfaces.hpp"
@@ -19,21 +20,40 @@ private:
 
     
     T* grow() {
-        capacity *= scale_factor;
+        /*capacity *= scale_factor;
         T* new_array = new T[capacity];
         
         if (head <= tail) {
             std::memcpy(new_array, array + head, tail - head);
         } else {
             std::memcpy(new_array, array + head, capacity - head);
-            std::memcpy(new_array, array, tail);
+            std::memcpy(new_array + tail - head, array, tail);
         }
 
         head = 0;
         tail = size;
                 
+        return new_array;*/
+
+        capacity *= scale_factor;
+        T* new_array = new T[capacity];
+        size_t j = 0;
+        for(size_t i = head; i != tail; i = WrappedAdd(i)) {
+            new_array[j] = array[i];
+            ++j;
+        }
+
         return new_array;
     }
+
+    size_t WrappedSub(size_t num) const {
+        return (num - 1 + capacity) % capacity;
+    }
+
+    size_t WrappedAdd(size_t num) const {
+        return (num + 1) % capacity;
+    }
+    
 public:
     // Big 5
     explicit ABDQ(std::size_t capacity) {
@@ -44,16 +64,15 @@ public:
         this->tail = 0;
     }
     
-    ABDQ() : ABDQ(1) {}
+    ABDQ() : ABDQ(2) {}
     
     ABDQ(const ABDQ& other) : ABDQ(other.capacity) {
         array = new T[capacity];
         
-        if (head <= tail) {
-            std::memcpy(array, array + head, tail - head);
-        } else {
-            std::memcpy(array, other.array + other.head, capacity - other.head);
-            std::memcpy(array, other.array, other.tail);
+        size_t j = 0;
+        for(size_t i = other.head; i != other.tail; i = other.WrappedAdd(i)) {
+            array[j] = other.array[i];
+            ++j;
         }
 
         head = 0;
@@ -73,11 +92,10 @@ public:
         capacity = other.capacity;
         array = new T[capacity];
         
-        if (head <= tail) {
-            std::memcpy(array, array + head, tail - head);
-        } else {
-            std::memcpy(array, other.array + other.head, capacity - other.head);
-            std::memcpy(array, other.array, other.tail);
+        size_t j = 0;
+        for(size_t i = other.head; i != other.tail; i = other.WrappedAdd(i)) {
+            array[j] = other.array[i];
+            ++j;
         }
 
         head = 0;
@@ -101,35 +119,36 @@ public:
         delete[] array;
         array = nullptr; 
         capacity = size = head = 0;
-        tail = 1;
+        tail = 0;
     }
 
     // Insertion
     void pushFront(const T& item) override {
-        if (size == capacity) {
+        if (size + 1 >= capacity) {
             T* new_array = grow();
             delete[] array;
             array = new_array;
         }
 
-        head = (head - 1) % capacity;
+        head = WrappedSub(head);
         array[head] = item;
         size += 1;
     }
     void pushBack(const T& item) override {
-        if (size == capacity) {
+        if (size + 1 >= capacity) {
             T* new_array = grow();
             delete[] array;
             array = new_array;
         }
 
-        array[head] = item;
-        tail = (tail + 1) % capacity;
+        array[tail] = item;
+        tail = WrappedAdd(tail);
         size += 1;
     }
 
     // Deletion
     void shrinkIfNeeded() {
+        /*
         if (capacity <= 4 || 4 * size < capacity) { return; }
 
         capacity /= scale_factor;
@@ -141,6 +160,19 @@ public:
             std::memcpy(new_array, array + head, capacity - head);
             std::memcpy(new_array, array, tail);
         }
+        */
+        T* old_array = array;
+        if (capacity <= 4 || 4 * size < capacity) { return; }
+        
+        size_t new_cap = capacity / scale_factor;
+        T* new_array = new T[new_cap];
+
+        size_t j = 0;
+        for(size_t i = head; i != tail; i = WrappedAdd(i)) {
+            new_array[j] = array[i];
+            ++j;
+        }
+        delete old_array;
     }
     
     T popFront() override {
@@ -149,7 +181,7 @@ public:
         }
 
         size_t old_head = head;
-        head = (head + 1) % capacity;
+        head = WrappedAdd(head);
         size -= 1;
         T out = array[old_head];
         shrinkIfNeeded();
@@ -162,7 +194,7 @@ public:
         }
 
         // size_t old_back = back;
-        tail = (tail - 1) % capacity;
+        tail = WrappedSub(tail);
         size -= 1;
         T out = array[tail];
         shrinkIfNeeded();
@@ -183,10 +215,22 @@ public:
             throw std::runtime_error("Index out of bounds.");
         }
 
-        return array[tail - 1];
+        return array[WrappedSub(tail)];
     }
 
     // Getters
     std::size_t getSize() const noexcept override { return size; }
 
+    void PrintForward() {
+        if (size == 0) { return; }
+
+        std::cout << head << ": " << array[head];
+
+        
+        for(size_t i = WrappedAdd(head); i != tail; i = WrappedAdd(i)) {
+            std::cout << ", " << i << ": " << array[i];
+        }
+
+        std::cout << std::endl;
+    }
 };
