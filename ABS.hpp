@@ -44,6 +44,8 @@ public:
         capacity = rhs.capacity;
         std::memcpy(array, rhs.array, rhs.size);
         size = rhs.size;
+
+        return *this;
     }
     
     ABS(ABS&& other) noexcept {
@@ -64,6 +66,8 @@ public:
         rhs.array = nullptr;
         rhs.capacity = 0;
         rhs.size = 0;
+
+        return *this;
     }
     
     ~ABS() noexcept override {
@@ -104,7 +108,7 @@ public:
 
     T pop() override {
         size -= 1;
-        T& output = array[size];
+        T output = array[size];
 
         if (capacity >= 4 && 4 * size <= capacity) {
             T* new_array = shrink();
@@ -132,6 +136,8 @@ private:
 public:
     void PrintForward() {
         // Print Head
+        if (size == 0) { return; }
+        
         std::cout << array[0];
 
         // Print Tail
@@ -139,6 +145,8 @@ public:
     }
 
     void PrintReverse() {
+        if (size == 0) { return; }
+
         std::cout << array[size - 1];
 
         PrintHead(array + (size - 1), size - 1);

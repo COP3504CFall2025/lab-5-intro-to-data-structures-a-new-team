@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cstddef>
+#include <cstring>
 #include <stdexcept>
+#include <iostream>
 #include "Interfaces.hpp"
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
@@ -9,34 +11,133 @@ using std::size_t;
 
 template<typename T>
 class ABQ : public QueueInterface<T>{
+private:
+    size_t capacity;
+    size_t size;
+    T* array;
+    static constexpr size_t scale_factor = 2;
 
-    size_t capacity_;
-    size_t curr_size_;
-    T* array_;
-    static constexpr size_t scale_factor_ = 2;
+    T* grow() {
+        capacity *= scale_factor;
+        T* new_array = new T[capacity];
+        std::memcpy(new_array, array, size);
+        return new_array;
+    }
+
+    T* shrink() {
+        capacity /= scale_factor;
+        T* new_array = new T[capacity];
+        std::memcpy(new_array, array, size);
+        return new_array;
+    }
 
 public:
     // Constructors + Big 5
-    ABQ();
-    explicit ABQ(const size_t capacity);
-    ABQ(const ABQ& other);
-    ABQ& operator=(const ABQ& rhs);
-    ABQ(ABQ&& other) noexcept;
-    ABQ& operator=(ABQ&& rhs) noexcept;
-    ~ABQ() noexcept override;
+    explicit ABQ(const size_t capacity) {
+        this->array = new T[capacity];
+        this->capacity = capacity;
+        this->size = 0;
+    }
+    
+    ABQ() : ABQ(1) {}
+    
+    ABQ(const ABQ& other) : ABQ(other.capacity) {
+        std::memcpy(array, other.array, other.size);
+        size = other.size;
+    }
+    
+    ABQ& operator=(const ABQ& rhs) {
+        capacity = rhs.capacity;
+        std::memcpy(array, rhs.array, rhs.size);
+        size = rhs.size;
+
+        return *this;
+    }
+    
+    ABQ(ABQ&& other) noexcept {
+        array = other.array;
+        capacity = other.capacity;
+        size = other.capacity;
+
+        other.array = nullptr;
+        other.capacity = 0;
+        other.size = 0;
+    }
+
+    ABQ& operator=(ABQ&& rhs) noexcept {
+        array = rhs.array;
+        capacity = rhs.capacity;
+        size = rhs.capacity;
+
+        rhs.array = nullptr;
+        rhs.capacity = 0;
+        rhs.size = 0;
+
+        return *this;
+    }
+
+    ~ABQ() noexcept override {
+        delete[] array;
+        capacity = size = 0;
+    }
 
     // Getters
-    [[nodiscard]] size_t getSize() const noexcept override;
-    [[nodiscard]] size_t getMaxCapacity() const noexcept;
-    [[nodiscard]] T* getData() const noexcept;
+    [[nodiscard]] size_t getSize() const noexcept override { return size; }
+    [[nodiscard]] size_t getMaxCapacity() const noexcept { return capacity; }
+    [[nodiscard]] T* getData() const noexcept { return array; }
 
     // Insertion
-    void enqueue(const T& data) override;
+    void enqueue(const T& data) override {
+        if (size >= capacity) {
+            T* new_array = grow();
+            delete[] array;
+            array = new_array;
+        }
+
+        array[size] = data;
+        size += 1;
+    }
 
     // Access
-    T peek() const override;
+    T peek() const override {
+        return array[0];
+    }
 
     // Deletion
-    T dequeue() override;
+    T dequeue() override {
+        T output = array[0];
 
+        for (size_t i = 0; i < size - 1; ++i) {
+            array[i] = array[i + 1];
+        }
+        size -= 1;
+
+        if (capacity >= 4 && 4 * size <= capacity) {
+            T* new_array = shrink();
+            delete[] array;
+            array = new_array;
+        }
+
+        return output;
+    }
+
+    void PrintForward() {
+        if (size == 0) { return; }
+        
+        std::cout << array[0];
+        
+        for (size_t i = 1; i < size ; ++i) {
+            std::cout << ' ' << array[i];
+        }
+    }
+
+    void PrintReverse() {
+        if (size == 0) { return; }
+        
+        std::cout << array[size - 1];
+        
+        for (size_t i = size - 2; i > 0 ; --i) {
+            std::cout << ' ' << array[i];
+        }
+    }
 };

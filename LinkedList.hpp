@@ -57,7 +57,7 @@ public:
 	const Node* getTail() const {return tail; }
 
 	// Insertion
-	void AddHead(const T& data) {
+	void addHead(const T& data) {
     // First, construct a node using data
     Node* head = new Node{
       data,
@@ -75,7 +75,7 @@ public:
     }
 	}
 	
-	void AddTail(const T& data) {
+	void addTail(const T& data) {
     // First, construct a node using data
     Node* tail = new Node{
       data,
@@ -93,7 +93,7 @@ public:
 	}
 
 	// Removal
-	bool RemoveHead() {
+	bool removeHead() {
 		if (!this->head) { return false; }
 
     if (this->head == this->tail) {
@@ -110,7 +110,7 @@ public:
     return true;
   }
   
-	bool RemoveTail() {
+	bool removeTail() {
 		if (!this->tail) { return false; }
 
     if (this->head == this->tail) {
@@ -130,14 +130,14 @@ public:
 	void Clear() {
 		if(!head) { return; }
 
-    RemoveHead();
+    removeHead();
     Clear();
   }
 
 private:
   void CopyNodeChain(Node* head) {
     if (!head) { return; }
-    AddTail(head->data);
+    addTail(head->data);
     CopyNodeChain(head->next);
   }
 
@@ -146,6 +146,7 @@ public:
     Clear();
     CopyNodeChain(rhs.head);
     count = rhs.count;
+    return *this;
 	}
 	
 	// Construction/Destruction
