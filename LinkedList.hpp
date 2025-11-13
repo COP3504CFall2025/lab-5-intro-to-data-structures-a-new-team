@@ -121,6 +121,7 @@ public:
     if (this->head == this->tail) {
       delete this->head;
       this->head = this->tail = nullptr;
+			--count;
       return true;
     }
     
