@@ -19,7 +19,7 @@ class LinkedList {
 	static void PrintForwardRecr(Node* node) {
     if(!node) { return; }
 
-    std::cout << ' '  << node->data;
+    std::cout << ' ' << node->data;
     PrintForwardRecr(node->next);
   }
 
@@ -27,15 +27,15 @@ class LinkedList {
   static void PrintReverseRecr(Node* node) {
     if(!node) { return; }
 
-    std::cout << ' '  << node->data;
-    PrintForwardRecr(node->prev);
+    std::cout << ' ' << node->data;
+    PrintReverseRecr(node->prev);
   }
 
 public:
 	// Behaviors
 	void printForward() const {
 		if(!head) { return; }
-		std::cout << ' '  << head->data;
+		std::cout << ' ' << head->data;
 
     PrintForwardRecr(head->next);
     std::cout << std::endl;
@@ -43,7 +43,7 @@ public:
 	
 	void printReverse() const {
 		if(!tail) { return; }
-    std::cout << ' '  << tail->data;
+    std::cout << ' ' << tail->data;
 
     PrintForwardRecr(tail->prev);
     std::cout << std::endl;
@@ -107,6 +107,7 @@ public:
       return true;
     }
   
+    /*
     Node* next = this->head->next;
     delete this->head;
     if (next) {
@@ -114,7 +115,12 @@ public:
 	    this->head = next;
     } else {
     	this->head = this->tail = nullptr;
-    }
+    }*/
+
+    Node* next = this->head->next;
+    delete this->head;
+    next->prev = nullptr;
+    this->head = next;
 
     return true;
   }
@@ -142,10 +148,7 @@ public:
   }
   
 	void clear() {
-		if(!head) { return; }
-
-    removeHead();
-    clear();
+		while(removeHead());
   }
 
 private:
