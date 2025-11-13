@@ -83,6 +83,8 @@ public:
         head = 0;
         tail = size;
         size = other.size;
+
+        return *this;
     }
     
     ABDQ& operator=(ABDQ&& other) noexcept {
@@ -91,6 +93,8 @@ public:
         this->size = other.size;
         this->head = other.head;
         this->tail = other.tail;
+
+        return *this;
     }
     
     ~ABDQ() override {
@@ -179,7 +183,7 @@ public:
             throw std::runtime_error("Index out of bounds.");
         }
 
-        return array[tail];
+        return array[tail - 1];
     }
 
     // Getters
