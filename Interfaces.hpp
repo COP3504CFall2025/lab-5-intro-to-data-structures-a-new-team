@@ -31,5 +31,6 @@ class DequeInterface {
   virtual const T& front() const = 0;
   virtual const T& back() const = 0;
   virtual std::size_t getSize() const noexcept = 0;
+  virtual ~DequeInterface() = 0;
 };
 
