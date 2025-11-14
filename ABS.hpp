@@ -61,7 +61,7 @@ public:
     ABS& operator=(ABS&& rhs) noexcept {
         array = rhs.array;
         capacity = rhs.capacity;
-        size = rhs.capacity;
+        size = rhs.size;
 
         rhs.array = nullptr;
         rhs.capacity = 0;
