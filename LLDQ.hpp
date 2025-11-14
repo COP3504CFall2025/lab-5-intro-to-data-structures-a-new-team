@@ -84,7 +84,7 @@ public:
         list.printReverse();
     }
 
-    ~LLS() override = default;
+    ~LLDQ() override = default;
 };
 
 

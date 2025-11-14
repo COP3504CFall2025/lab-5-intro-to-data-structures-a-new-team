@@ -56,5 +56,5 @@ public:
         list.printReverse();
     }
 
-    ~LLS() override = default;
+    ~LLQ() override = default;
 };
