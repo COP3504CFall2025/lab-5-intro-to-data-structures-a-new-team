@@ -105,7 +105,7 @@ public:
 
     // Insertion
     void enqueue(const T& data) override {
-        if (size >= capacity) {
+        if (size == capacity) {
             T* new_array = grow();
             delete[] array;
             array = new_array;
@@ -137,13 +137,11 @@ public:
         }
         size -= 1;
 
-        /*
         if (capacity >= 4 && 4 * size <= capacity) {
             T* new_array = shrink();
             delete[] array;
             array = new_array;
         }
-        */
 
         return output;
     }
