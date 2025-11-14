@@ -72,6 +72,9 @@ public:
     }
     
     ABS& operator=(ABS&& rhs) noexcept {
+    		if (this == &rhs) {
+          return *this;
+        }
         array = rhs.array;
         capacity = rhs.capacity;
         size = rhs.size;

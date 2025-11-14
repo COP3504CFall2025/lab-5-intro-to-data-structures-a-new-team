@@ -93,6 +93,9 @@ public:
     }
     
     ABDQ& operator=(ABDQ&& other) noexcept {
+    		if (this == &other) {
+            return *this;
+        }
         this->array = other.array;
         this->capacity = other.capacity;
         this->size = other.size;

@@ -76,6 +76,9 @@ public:
     }
 
     ABQ& operator=(ABQ&& rhs) noexcept {
+    		if (this == &rhs) {
+          return *this;
+        }
         array = rhs.array;
         capacity = rhs.capacity;
         size = rhs.size;

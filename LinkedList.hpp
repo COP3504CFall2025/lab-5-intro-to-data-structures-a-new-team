@@ -167,6 +167,9 @@ public:
 	}
 
 	LinkedList<T>& operator=(LinkedList<T>&& rhs) {
+		if (this == &rhs) {
+      return *this;
+    }
 		head = rhs.head;
     tail = rhs.tail;
     count = rhs.count;
@@ -186,6 +189,7 @@ public:
 	}
 
 	LinkedList(LinkedList<T>&& other) noexcept {
+		    
 		head = other.head;
     tail = other.tail;
     count = other.count;
