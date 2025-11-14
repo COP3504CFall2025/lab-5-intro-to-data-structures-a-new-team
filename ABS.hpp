@@ -129,18 +129,18 @@ public:
         return output;
     }
 private:
-    void PrintHead(T* head, size_t size) {
-        if (size == 0) { return; }
-
-        std::cout << ' ' << head[0];
-        PrintTail(head + 1, size - 1);
-    }
-
     void PrintTail(T* tail, size_t size) {
         if (size == 0) { return; }
 
         std::cout << ' ' << tail[0];
-        PrintTail(tail - 1, size - 1);
+        PrintTail(tail + 1, size - 1);
+    }
+
+    void PrintHead(T* head, size_t size) {
+        if (size == 0) { return; }
+
+        std::cout << ' ' << head[0];
+        PrintHead(head - 1, size - 1);
     }
 
 public:
@@ -152,6 +152,8 @@ public:
 
         // Print Tail
         PrintTail(array + 1, size - 1);
+
+        std::cout << std::endl;
     }
 
     void PrintReverse() {
@@ -160,6 +162,7 @@ public:
         std::cout << array[size - 1];
 
         PrintHead(array + (size - 1), size - 1);
+        std::cout << std::endl;
     }
 
 private:
