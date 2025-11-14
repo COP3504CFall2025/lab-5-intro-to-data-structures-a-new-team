@@ -68,7 +68,7 @@ public:
     ABQ(ABQ&& other) noexcept {
         array = other.array;
         capacity = other.capacity;
-        size = other.capacity;
+        size = other.size;
 
         other.array = nullptr;
         other.capacity = 0;
@@ -78,7 +78,7 @@ public:
     ABQ& operator=(ABQ&& rhs) noexcept {
         array = rhs.array;
         capacity = rhs.capacity;
-        size = rhs.capacity;
+        size = rhs.size;
 
         rhs.array = nullptr;
         rhs.capacity = 0;
