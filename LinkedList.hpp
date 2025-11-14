@@ -165,6 +165,16 @@ public:
     count = rhs.count;
     return *this;
 	}
+
+	LinkedList<T>& operator=(LinkedList<T>&& rhs) {
+		head = rhs.head;
+    tail = rhs.tail;
+    count = rhs.count;
+
+    rhs.head = nullptr;
+    rhs.tail = nullptr;
+    rhs.count = 0;
+	}
 	
 	// Construction/Destruction
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {}
