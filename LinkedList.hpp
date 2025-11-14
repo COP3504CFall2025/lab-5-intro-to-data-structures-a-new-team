@@ -161,15 +161,19 @@ private:
 public:
 	LinkedList<T>& operator=(const LinkedList<T>& rhs) {
     clear();
+    head = tail = nullptr;
     CopyNodeChain(rhs.head);
     count = rhs.count;
     return *this;
 	}
 
-	LinkedList<T>& operator=(LinkedList<T>&& rhs) {
+	LinkedList<T>& operator=(LinkedList<T>&& rhs) noexcept {
 		if (this == &rhs) {
       return *this;
     }
+
+		clear();
+    
 		head = rhs.head;
     tail = rhs.tail;
     count = rhs.count;
@@ -184,16 +188,12 @@ public:
 	// Construction/Destruction
 	LinkedList() : head(nullptr), tail(nullptr), count(0) {}
 	LinkedList(const LinkedList<T>& list) {
+		head = tail = nullptr;
 		CopyNodeChain(list.head);
     count = list.count;
 	}
 
-	LinkedList(LinkedList<T>&& other) noexcept {
-		    
-		head = other.head;
-    tail = other.tail;
-    count = other.count;
-
+	LinkedList(LinkedList<T>&& other) noexcept : head(other.head), tail(other.tail), count(other.count) {
     other.head = nullptr;
     other.tail = nullptr;
     other.count = 0;
