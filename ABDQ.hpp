@@ -61,7 +61,7 @@ public:
         }
 
         head = 0;
-        tail = size;
+        tail = other.size;
         size = other.size;
     }
     

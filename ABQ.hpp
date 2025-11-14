@@ -20,14 +20,20 @@ private:
     T* grow() {
         capacity *= scale_factor;
         T* new_array = new T[capacity];
-        std::memcpy(new_array, array, size);
+
+        for (size_t i = 0; i < size; ++i) {
+            new_array[i] = array[i];
+        }
+        
         return new_array;
     }
 
     T* shrink() {
         capacity /= scale_factor;
         T* new_array = new T[capacity];
-        std::memcpy(new_array, array, size);
+        for (size_t i = 0; i < size; ++i) {
+            new_array[i] = array[i];
+        }
         return new_array;
     }
 
@@ -42,13 +48,18 @@ public:
     ABQ() : ABQ(1) {}
     
     ABQ(const ABQ& other) : ABQ(other.capacity) {
-        std::memcpy(array, other.array, other.size);
+        for (size_t i = 0; i < other.size; ++i) {
+            array[i] = other.array[i];
+        }
         size = other.size;
     }
     
     ABQ& operator=(const ABQ& rhs) {
         capacity = rhs.capacity;
-        std::memcpy(array, rhs.array, rhs.size);
+
+        for (size_t i = 0; i < rhs.size; ++i) {
+            array[i] = rhs.array[i];
+        }
         size = rhs.size;
 
         return *this;
