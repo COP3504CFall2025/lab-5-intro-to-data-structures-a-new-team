@@ -57,6 +57,7 @@ public:
     ABQ& operator=(const ABQ& rhs) {
         capacity = rhs.capacity;
 
+        delete[] array;
         for (size_t i = 0; i < rhs.size; ++i) {
             array[i] = rhs.array[i];
         }
@@ -79,6 +80,7 @@ public:
     		if (this == &rhs) {
           return *this;
         }
+        delete[] array;
         array = rhs.array;
         capacity = rhs.capacity;
         size = rhs.size;

@@ -96,6 +96,7 @@ public:
     		if (this == &other) {
             return *this;
         }
+        delete[] array;
         this->array = other.array;
         this->capacity = other.capacity;
         this->size = other.size;
