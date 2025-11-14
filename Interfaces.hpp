@@ -11,7 +11,7 @@ public:
   virtual T pop() = 0;
   virtual T peek() const = 0;
   virtual std::size_t getSize() const noexcept = 0;
-  virtual ~StackInterface() = default;
+  virtual ~StackInterface() = 0;
 };
 
 
@@ -22,7 +22,7 @@ public:
   virtual T dequeue() = 0;
   virtual T peek() const = 0;
   virtual std::size_t getSize() const noexcept = 0;
-  virtual ~QueueInterface() = default;
+  virtual ~QueueInterface() = 0;
 };
 
 
@@ -36,6 +36,6 @@ public:
   virtual const T& front() const = 0;
   virtual const T& back() const = 0;
   virtual std::size_t getSize() const noexcept = 0;
-  virtual ~DequeInterface() = default;
+  virtual ~DequeInterface() = 0;
 };
 
