@@ -74,7 +74,7 @@ public:
       this->head = head;
     }
 
-    ++count;
+    count += 1;
 	}
 	
 	void addTail(const T& data) {
@@ -93,14 +93,14 @@ public:
       this->tail = tail;
     }
 
-    ++count;
+    count += 1;
 	}
 
 	// Removal
 	bool removeHead() {
 		if (!this->head) { return false; }
 
-		--count;
+		count -= 1;
     if (this->head == this->tail) {
       delete this->head;
       this->head = this->tail = nullptr;
@@ -128,7 +128,7 @@ public:
 	bool removeTail() {
 		if (!this->tail) { return false; }
 
-		--count;
+		count -= 1;
     if (this->head == this->tail) {
       delete this->head;
       this->head = this->tail = nullptr;
