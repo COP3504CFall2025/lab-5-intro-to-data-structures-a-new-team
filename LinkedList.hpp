@@ -174,6 +174,8 @@ public:
     rhs.head = nullptr;
     rhs.tail = nullptr;
     rhs.count = 0;
+
+    return *this;
 	}
 	
 	// Construction/Destruction
