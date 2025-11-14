@@ -83,6 +83,8 @@ public:
     void PrintReverse() {
         list.printReverse();
     }
+
+    ~LLS() override = default;
 };
 
 
